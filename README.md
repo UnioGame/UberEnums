@@ -25,13 +25,13 @@ Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json n
 
 ## Editor View
 
-![](https://github.com/UnioGame/UberEnums/blob/master/Readme/Assets/uberenum1.png)
+![](https://github.com/UnioGame/UberEnums/blob/main/GitAssets/uberenum1.png)
 
-![](https://github.com/UnioGame/UberEnums/blob/master/Readme/Assets/uberenum2.png)
+![](https://github.com/UnioGame/UberEnums/blob/main/GitAssets/uberenum2.png)
 
 Generated Enum
 
-![](https://github.com/UnioGame/UberEnums/blob/master/Readme/Assets/uberenum3.png)
+![](https://github.com/UnioGame/UberEnums/blob/main/GitAssets/uberenum3.png)
 
 ## Generate Enum from Code
 
