@@ -1,0 +1,27 @@
+{
+    "name": "com.unigame.uberenums",
+    "rootNamespace": "",
+    "references": [
+        "GUID:81d29a5e4682947dfa73ba6bd09fe0be"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ODIN_INSPECTOR",
+        "ENABLE_CODE_GEN"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.annulusgames.unity-codegen",
+            "expression": "",
+            "define": "ENABLE_CODE_GEN"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,15 @@
+{
+  "name": "com.unigame.uberenum",
+  "displayName": "Unity Enum Generator",
+  "version": "1.0.0",
+  "unity": "2020.1",
+  "license": "MIT",
+  "author": {
+    "name": "Tres-Poli",
+    "url": "https://github.com/Tres-Poli"
+  },
+  "description": "Enum generator tool for Unity Editor",
+  "dependencies": {
+    "com.annulusgames.unity-codegen" : "1.0.0"
+  }
+}
