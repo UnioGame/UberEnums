@@ -1,8 +1,9 @@
 {
-    "name": "com.unigame.uberenums",
+    "name": "com.unigame.uberenums.editor",
     "rootNamespace": "",
     "references": [
-        "GUID:81d29a5e4682947dfa73ba6bd09fe0be"
+        "GUID:81d29a5e4682947dfa73ba6bd09fe0be",
+        "GUID:8c5798340b43490aba98e63320018156"
     ],
     "includePlatforms": [
         "Editor"
