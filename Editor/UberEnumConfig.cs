@@ -111,6 +111,11 @@
 
         private void IsStrictOrderChanged_Callback()
         {
+            for (var i = 0; i < values.Length; i++)
+            {
+                values[i].index = i;
+            }
+            
             foreach (var t in values)
             {
                 t.IsStrictOrderChanged_Callback(isStrictlyOrdered);
