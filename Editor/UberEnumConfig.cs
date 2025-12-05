@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Sirenix.OdinInspector;
+    using Sirenix.OdinInspector.Editor;
     using UnityEngine;
     using UnityEditor;
     using FilePathAttribute = UnityEditor.FilePathAttribute;
@@ -73,6 +74,7 @@
         [ReadOnly]
         public string name = string.Empty;
         
+        [OnCollectionChanged(nameof(AfterValuesChanged))]
         [DisableIf(nameof(isReadOnly))]
         public EnumValue[] values = Array.Empty<EnumValue>();
         
@@ -109,6 +111,15 @@
             }
         }
 
+        private void AfterValuesChanged(CollectionChangeInfo info, object collection)
+        {
+            if (info.ChangeType != CollectionChangeType.Add || info.Index < 0) return;
+            if (values == null || info.Index >= values.Length) return;
+
+            var newValue = values[^1];
+            ReinitializeNewValue(newValue, values.Length - 1);
+        }
+
         private void IsStrictOrderChanged_Callback()
         {
             for (var i = 0; i < values.Length; i++)
@@ -120,6 +131,16 @@
             {
                 t.IsStrictOrderChanged_Callback(isStrictlyOrdered);
             }
+        }
+        
+        private void ReinitializeNewValue(EnumValue value, int index)
+        {
+            if (!isStrictlyOrdered) return;
+            
+            value.value = index;
+            value.index = index;
+            value.isStrictlyOrdered = isStrictlyOrdered;
+            value.isReadOnly = isReadOnly;
         }
     }
 
