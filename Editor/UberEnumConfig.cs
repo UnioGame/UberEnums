@@ -21,6 +21,7 @@
             get => Find(key);
             set
             {
+                enumData = enumData ?? new List<EnumData>();
                 var index = GetIndex(key);
                 if (index < 0)
                 {
@@ -33,10 +34,16 @@
 
         public int GetIndex(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return -1;
+            }
+
+            enumData = enumData ?? new List<EnumData>();
             for (var i = 0; i < enumData.Count; i++)
             {
                 var item = enumData[i];
-                if (item.name.Equals(id, StringComparison.OrdinalIgnoreCase))
+                if (item?.name != null && item.name.Equals(id, StringComparison.OrdinalIgnoreCase))
                     return i;
             }
 
@@ -45,21 +52,34 @@
         
         public EnumData Find(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            enumData = enumData ?? new List<EnumData>();
             return enumData.FirstOrDefault(x => 
-                x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
+                x?.name != null && x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
         }
         
         public bool Contains(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
+
+            enumData = enumData ?? new List<EnumData>();
             var first = enumData
-                .FirstOrDefault(x => x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(x => x?.name != null && x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
             return first != null;
         }
         
         public void Remove(string id)
         {
             if(string.IsNullOrEmpty(id)) return;
-            enumData.RemoveAll(x => x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
+            enumData = enumData ?? new List<EnumData>();
+            enumData.RemoveAll(x => x?.name != null && x.name.Equals(id,StringComparison.OrdinalIgnoreCase));
         }
         
         public void SaveConfig()
@@ -104,8 +124,18 @@
             set
             {
                 _isReadOnly = value;
+                if (values == null)
+                {
+                    return;
+                }
+
                 foreach (var v in values)
                 {
+                    if (v == null)
+                    {
+                        continue;
+                    }
+
                     v.isReadOnly = _isReadOnly;
                 }
             }
@@ -116,25 +146,40 @@
             if (info.ChangeType != CollectionChangeType.Add || info.Index < 0) return;
             if (values == null || info.Index >= values.Length) return;
 
-            var newValue = values[^1];
-            ReinitializeNewValue(newValue, values.Length - 1);
+            ReinitializeNewValue(values[info.Index], info.Index);
         }
 
         private void IsStrictOrderChanged_Callback()
         {
+            if (values == null)
+            {
+                return;
+            }
+
             for (var i = 0; i < values.Length; i++)
             {
+                if (values[i] == null)
+                {
+                    continue;
+                }
+
                 values[i].index = i;
             }
             
             foreach (var t in values)
             {
+                if (t == null)
+                {
+                    continue;
+                }
+
                 t.IsStrictOrderChanged_Callback(isStrictlyOrdered);
             }
         }
         
         private void ReinitializeNewValue(EnumValue value, int index)
         {
+            if (value == null) return;
             if (!isStrictlyOrdered) return;
             
             value.value = index;

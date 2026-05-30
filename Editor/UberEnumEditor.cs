@@ -59,6 +59,11 @@
                 if (SirenixEditorGUI.ToolbarButton("Generate"))
                 {
                     var data = selected.SelectedValue as EnumData;
+                    if (data == null)
+                    {
+                        return;
+                    }
+
                     UberEnumApi.Generate(data);
                 }
             }
